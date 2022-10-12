@@ -6,5 +6,6 @@
   - Write any questions down.
   - Comment what is going on within each coding cell. 
   - Finish by the 23rd
+  - sman_amelia.ipynb, sman_ryan.ipynb
 
 ## Next Meeting
