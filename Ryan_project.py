@@ -1,7 +1,6 @@
 from pandas_datareader import data as pdr
 from datetime import datetime
 import datetime as dt
-import time
 import math
 import matplotlib.pyplot as plt
 from matplotlib import style
@@ -16,10 +15,10 @@ style.use('ggplot')
 yf.pdr_override()
 
 ticker = input("What Stock ticker would you like to predict:")
-ticker = [ticker]
+
 
 end = datetime.now(tz=None)
-start = datetime(end.year - 1, end.month, end.day)
+start = datetime(end.year - 19, end.month, end.day)
 
 df = pdr.get_data_yahoo(ticker, start, end)
 df = df[['Open', 'High', 'Low', 'Close', 'Volume']]
@@ -30,7 +29,7 @@ df = df[['Close', 'HL_PCT', 'PCT_change', 'Volume']]
 forecast_col = 'Close'
 df.fillna(-99999, inplace=True)
 
-forecast_out = int(math.ceil(0.03*len(df)))
+forecast_out = int(math.ceil(0.008*len(df)))
 
 df['label'] = df[forecast_col].shift(-forecast_out)
 X = np.array(df.drop(['label'], 1))
@@ -56,8 +55,6 @@ forecast_set = clf.predict(X_lately)
 
 df['forecast'] = np.nan
 
-"""print(forecast_out, forecast_set)"""
-
 last_date = df.iloc[-1].name
 last_unix = last_date.timestamp()
 one_day = 86400
@@ -74,3 +71,8 @@ plt.legend(loc=4)
 plt.xlabel('Date')
 plt.ylabel('Price')
 plt.show()
+
+
+
+
+
